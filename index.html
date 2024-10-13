@@ -1,1 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Resource Site</title>
+    <style>
+        /* CSS for Layout and Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .header-card {
+            background: url('https://source.unsplash.com/1600x900/?utah-arches') no-repeat center center/cover;
+            height: 300px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .gradient-overlay {
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .gradient-overlay h1 {
+            font-size: 48px;
+            margin: 0;
+        }
+
+        .gradient-overlay p {
+            font-size: 18px;
+            margin: 10px 0 0;
+        }
+
+        .app-cards {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            margin-top: -50px;
+        }
+
+        .app-card {
+            width: 22%;
+            background: #fff;
+            border-radius: 10px;
+            text-align: center;
+            padding: 15px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .app-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .app-card img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .app-card h3 {
+            margin: 10px 0 0;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Card (Feature Card) -->
+    <div class="header-card">
+        <div class="gradient-overlay">
+            <h1 id="greeting">Good Morning</h1>
+            <p id="current-date">October 13, 2024</p>
+        </div>
+    </div>
+
+    <!-- App Cards Section -->
+    <div class="app-cards">
+        <div class="app-card" id="random-apps"></div>
+        <div class="app-card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/45/Canva_logo.png" alt="Canva Icon" />
+            <h3>Canva</h3>
+        </div>
+        <div class="app-card">
+            <img src="https://mytab.knovon.net/knovontablogo.png" alt="Knovon Tabs Icon" />
+            <h3>Knovon Tabs</h3>
+        </div>
+        <div class="app-card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Zoho-logo.svg/1200px-Zoho-logo.svg.png" alt="Mail Box Icon" />
+            <h3>Mail Box</h3>
+        </div>
+    </div>
+
+    <!-- JavaScript for Dynamic Greeting and Date -->
+    <script>
+        function updateGreetingAndDate() {
+            const greetingElement = document.getElementById("greeting");
+            const currentDateElement = document.getElementById("current-date");
+            const today = new Date();
+            const hours = today.getHours();
+            let greeting = "Good Morning";
+
+            if (hours >= 12 && hours < 18) {
+                greeting = "Good Afternoon";
+            } else if (hours >= 18 && hours < 22) {
+                greeting = "Good Evening";
+            } else if (hours >= 22 || hours < 6) {
+                greeting = "Good Night";
+            }
+
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const date = today.toLocaleDateString('en-US', options);
+
+            greetingElement.innerText = greeting;
+            currentDateElement.innerText = date;
+        }
+
+        updateGreetingAndDate();
+
+        // Random App Card Logic
+        const apps = [
+            { name: 'Zero Trust', url: 'https://1.1.1.1', icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Cloudflare_logo.svg/2560px-Cloudflare_logo.svg.png' },
+            { name: 'Canva', url: 'https://canva.com', icon: 'https://upload.wikimedia.org/wikipedia/commons/4/45/Canva_logo.png' },
+            { name: 'Knovon Tabs', url: 'https://mytab.knovon.net', icon: 'https://mytab.knovon.net/knovontablogo.png' },
+            { name: 'Knovon One', url: 'https://one.knovon.org', icon: 'https://mytab.knovon.net/knovontablogo.png' },
+            { name: 'Roblox', url: 'https://roblox.com', icon: 'https://upload.wikimedia.org/wikipedia/commons/1/16/Roblox_Logo_Black.svg' },
+            { name: 'Mail Box', url: 'https://mail.zoho.com', icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Zoho-logo.svg/1200px-Zoho-logo.svg.png' },
+            { name: 'Discord', url: 'https://discord.com', icon: 'https://upload.wikimedia.org/wikipedia/commons/7/74/Discord_Logo.svg' },
+            { name: 'ChatGPT', url: 'https://chatgpt.com', icon: 'https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg' }
+        ];
+
+        function getRandomApps() {
+            let randomApps = [];
+            while (randomApps.length < 4) {
+                const randomIndex = Math.floor(Math.random() * apps.length);
+                if (!randomApps.includes(apps[randomIndex])) {
+                    randomApps.push(apps[randomIndex]);
+                }
+            }
+            const appContainer = document.getElementById('random-apps');
+            appContainer.innerHTML = randomApps.map(app => `
+                <div class="app-card" onclick="window.location.href='${app.url}'">
+                    <img src="${app.icon}" alt="${app.name} Icon" />
+                    <h3>${app.name}</h3>
+                </div>
+            `).join('');
+        }
+
+        getRandomApps();
+    </script>
+
+</body>
+</html>
 
