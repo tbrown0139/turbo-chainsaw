@@ -13,45 +13,66 @@
             background-color: #f4f4f4;
         }
 
+        /* Header card styling */
         .header-card {
             background: url('https://source.unsplash.com/1600x900/?utah-arches') no-repeat center center/cover;
-            height: 300px;
+            height: 400px;
             position: relative;
             display: flex;
-            justify-content: center;
             align-items: center;
-        }
-
-        .gradient-overlay {
-            background: rgba(0, 0, 0, 0.5);
+            padding-left: 50px;
             color: white;
-            text-align: center;
-            padding: 20px;
+            overflow: hidden;
         }
 
-        .gradient-overlay h1 {
+        .header-card .content {
+            z-index: 2;
+        }
+
+        .header-card h1 {
             font-size: 48px;
             margin: 0;
         }
 
-        .gradient-overlay p {
+        .header-card p {
             font-size: 18px;
             margin: 10px 0 0;
         }
 
+        .header-card .gradient-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .header-card img.logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 50px;
+            z-index: 3;
+        }
+
+        /* App cards container */
         .app-cards {
             display: flex;
-            justify-content: space-between;
+            flex-wrap: wrap;
+            justify-content: space-around;
             padding: 20px;
             margin-top: -50px;
         }
 
+        /* App card styling */
         .app-card {
-            width: 22%;
+            width: 23%;
             background: #fff;
             border-radius: 10px;
             text-align: center;
-            padding: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
             cursor: pointer;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s ease;
@@ -67,8 +88,34 @@
         }
 
         .app-card h3 {
-            margin: 10px 0 0;
+            margin: 10px 0;
             font-size: 18px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .app-card {
+                width: 48%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .app-card {
+                width: 100%;
+            }
+
+            .header-card {
+                height: 300px;
+                padding-left: 20px;
+            }
+
+            .header-card h1 {
+                font-size: 36px;
+            }
+
+            .header-card p {
+                font-size: 16px;
+            }
         }
     </style>
 </head>
@@ -76,31 +123,22 @@
 
     <!-- Header Card (Feature Card) -->
     <div class="header-card">
-        <div class="gradient-overlay">
+        <img src="https://mytab.knovon.net/knovontablogo.png" alt="Logo" class="logo">
+        <div class="gradient-overlay"></div>
+        <div class="content">
             <h1 id="greeting">Good Morning</h1>
             <p id="current-date">October 13, 2024</p>
         </div>
     </div>
 
     <!-- App Cards Section -->
-    <div class="app-cards">
-        <div class="app-card" id="random-apps"></div>
-        <div class="app-card">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/4/45/Canva_logo.png" alt="Canva Icon" />
-            <h3>Canva</h3>
-        </div>
-        <div class="app-card">
-            <img src="https://mytab.knovon.net/knovontablogo.png" alt="Knovon Tabs Icon" />
-            <h3>Knovon Tabs</h3>
-        </div>
-        <div class="app-card">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Zoho-logo.svg/1200px-Zoho-logo.svg.png" alt="Mail Box Icon" />
-            <h3>Mail Box</h3>
-        </div>
+    <div class="app-cards" id="app-cards-container">
+        <!-- App cards will be populated by JavaScript -->
     </div>
 
-    <!-- JavaScript for Dynamic Greeting and Date -->
+    <!-- JavaScript for Dynamic Greeting, Date, and Random App Cards -->
     <script>
+        // Update Greeting and Date
         function updateGreetingAndDate() {
             const greetingElement = document.getElementById("greeting");
             const currentDateElement = document.getElementById("current-date");
@@ -125,7 +163,7 @@
 
         updateGreetingAndDate();
 
-        // Random App Card Logic
+        // Random App Cards Logic
         const apps = [
             { name: 'Zero Trust', url: 'https://1.1.1.1', icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Cloudflare_logo.svg/2560px-Cloudflare_logo.svg.png' },
             { name: 'Canva', url: 'https://canva.com', icon: 'https://upload.wikimedia.org/wikipedia/commons/4/45/Canva_logo.png' },
@@ -145,7 +183,7 @@
                     randomApps.push(apps[randomIndex]);
                 }
             }
-            const appContainer = document.getElementById('random-apps');
+            const appContainer = document.getElementById('app-cards-container');
             appContainer.innerHTML = randomApps.map(app => `
                 <div class="app-card" onclick="window.location.href='${app.url}'">
                     <img src="${app.icon}" alt="${app.name} Icon" />
@@ -159,4 +197,3 @@
 
 </body>
 </html>
-
