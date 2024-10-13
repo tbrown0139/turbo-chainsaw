@@ -27,6 +27,7 @@
 
         .header-card .content {
             z-index: 2;
+            position: relative;
         }
 
         .header-card h1 {
@@ -46,6 +47,7 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.4);
+            z-index: 1;
         }
 
         .header-card img.logo {
@@ -67,7 +69,8 @@
 
         /* App card styling */
         .app-card {
-            width: 23%;
+            width: 100%;
+            max-width: 100%;
             background: #fff;
             border-radius: 10px;
             text-align: center;
@@ -93,28 +96,23 @@
         }
 
         /* Responsive design */
-        @media (max-width: 768px) {
+        @media (min-width: 768px) {
             .app-card {
                 width: 48%;
             }
         }
 
-        @media (max-width: 480px) {
+        @media (min-width: 1024px) {
             .app-card {
-                width: 100%;
-            }
-
-            .header-card {
-                height: 300px;
-                padding-left: 20px;
+                width: 22%;
             }
 
             .header-card h1 {
-                font-size: 36px;
+                font-size: 56px;
             }
 
             .header-card p {
-                font-size: 16px;
+                font-size: 20px;
             }
         }
     </style>
